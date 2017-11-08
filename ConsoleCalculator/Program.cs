@@ -17,8 +17,9 @@ namespace ConsoleCalculator
             do
             {
                 string x = Console.ReadLine();
-                parse.Parseinput(x);
-                var output = (parse.DoMath(parse.Holding, parse.HoldingChar));
+
+                parse.ParseUInput(x);
+                var output = (parse.DoMath(parse.holding, parse.holdingChar));
                 Console.WriteLine(output.ToString());
                 Console.ReadLine();
             } while (true);

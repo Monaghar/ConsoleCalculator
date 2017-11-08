@@ -11,7 +11,11 @@ namespace ConsoleCalculator
         bool inPeren { get; set; }
         double DoMath();
         void ParseInput();
-        List<double> Holding { get; set; }
-        List<double> HoldingChar { get; set; }
+        void CallInput();
+        void StoreInput();
+        Dictionary<int, string> storedProcedures { get; set; }
+        int dictKeycounter { get; set; }
+        List<double> holding { get; set; }
+        List<double> holdingChar { get; set; }
     }
 }

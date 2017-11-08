@@ -8,10 +8,16 @@ namespace ConsoleCalculator
 {
     public class ParseInput
     {
-        bool inPeren = false;
+        //bool inPeren = false;
+        public Dictionary<int, string> storedProcedures = new Dictionary<int, string>();
+        public int dictKeycounter { get; set; }
         List<string> perenString = new List<string>();
-        public List<double> Holding = new List<double>();
-        public List<char> HoldingChar = new List<char>();
+        public List<double> holding = new List<double>();
+        public List<char> holdingChar = new List<char>();
+
+        public ParseInput()
+        {
+        }
 
         //public void Box(string input)
         //{
@@ -82,29 +88,30 @@ namespace ConsoleCalculator
 
         //}
 
-        public void Parseinput(string input)
+        public void ParseUInput(string input)
         {
             string[] parsedInput = input.Split(' ');
             foreach (string x in parsedInput)
             {
-                if(string.IsNullOrEmpty(x))
-                { continue; }
-                try
-                {
-                    double number = Convert.ToDouble(x);
-                    Console.Write("{0} ", number);
-                    Holding.Add(number);
-                }
-                catch(FormatException)
+                if (!string.IsNullOrWhiteSpace(x))
                 {
                     try
                     {
-                        char character = Convert.ToChar(x);
-                        HoldingChar.Add(character);
+                        double number = Convert.ToDouble(x);
+                        Console.Write("{0} ", number);
+                        holding.Add(number);
                     }
-                    catch(FormatException)
+                    catch (FormatException)
                     {
-                        Console.WriteLine("Please edit your input to match the correct format.");
+                        try
+                        {
+                            char character = Convert.ToChar(x);
+                            holdingChar.Add(character);
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Please edit your input to match the correct format.");
+                        }
                     }
                 }
             }
@@ -154,6 +161,22 @@ namespace ConsoleCalculator
 
         //    return next.ToArray<string>();
         //}
+        
+        public void StoreInput(string input)
+        {
+            if (!(input == null))
+            {
+                storedProcedures.Add(dictKeycounter, input);
+                Console.WriteLine("your Key for this new procedure is {0}", dictKeycounter);
+                dictKeycounter += 1;
+            }
+        }
+
+        public void CallInput(int key)
+        {
+            string tempString = storedProcedures[key];
+            ParseUInput(tempString);
+        }
 
         public double DoMath(List<double> holdi, List<char> charz)
         {
