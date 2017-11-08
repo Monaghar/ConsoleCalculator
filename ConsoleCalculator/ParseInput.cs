@@ -90,28 +90,25 @@ namespace ConsoleCalculator
 
         public void ParseUInput(string input)
         {
+            double? number;
+            char character;
             string[] parsedInput = input.Split(' ');
             foreach (string x in parsedInput)
             {
-                if (!string.IsNullOrWhiteSpace(x))
+                 if (!string.IsNullOrWhiteSpace(x))
                 {
-                    try
+                    double.TryParse(x, number)
                     {
-                        double number = Convert.ToDouble(x);
                         Console.Write("{0} ", number);
                         holding.Add(number);
                     }
+                    try()
+                    {
+                       character = x.ToChar();
+                    }
                     catch (FormatException)
                     {
-                        try
-                        {
-                            char character = Convert.ToChar(x);
-                            holdingChar.Add(character);
-                        }
-                        catch (FormatException)
-                        {
-                            Console.WriteLine("Please edit your input to match the correct format.");
-                        }
+                        Console.WriteLine("Please edit your input to match the correct format.");
                     }
                 }
             }
